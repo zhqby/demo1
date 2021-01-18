@@ -30,6 +30,7 @@ public class LoginController {
 	private ILoginService loginService;     
     
     // /user/test?id=1
+	//sssss
     @RequestMapping(value="/test", method=RequestMethod.GET)  
     public String test(HttpServletRequest request,Model model){  
         return "back"; 
