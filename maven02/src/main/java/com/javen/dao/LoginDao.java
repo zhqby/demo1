@@ -9,7 +9,7 @@ import com.javen.model.Login;
 
 public interface LoginDao {
 	
-	Login selectByPrimaryKey(int id);
+	Login selectByManName(String userName);
 	
 	int deleteByPrimaryKey(int id);
 	

@@ -9,7 +9,7 @@ import com.javen.model.Login;
 public interface ILoginService {
 	//所有你想要实现的方法一定要在这个地方定义
 	
-	 public Login selectByPrimaryKey(int id);
+	 Login selectByManName(String userName);
 	 
 	 public int deleteByPrimaryKey(int id);
 	 

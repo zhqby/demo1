@@ -6,12 +6,42 @@
   <title>青城博雅-新世纪</title>
   <link rel="stylesheet" href="../sources/layui/css/layui.css">
   <script src="../sources/layui/layui.js" charset="utf-8"></script>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+  checklogin();
+  function checklogin(){
+		
+		var url = "http://localhost:8080/maven02/login/checkState";
+		var data={};
+		 $.ajax({
+		        type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
+		        url: url,    //传输地址的URL
+		        data:data, //data代表我们的数据  key -value类型的数据
+		        dataType:'JSON',
+		        async : false, //success和error代表是否返回成功，既后台给前台传输数据是否成功
+		        success: function (data)
+		        {
+		        	
+		        	if(data.message==99){
+						location.href="lo.html";
+					}else{
+						
+					}
+		        },
+		        error:function (XMLHttpRequest, textStatus, errorThrown) { 
+		            alert(typeof(errorThrown));
+		        }
+		     });
+		}
+  </script>
 </head>
+
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
     <div class="layui-logo">酒店管理系统-后台</div>
     <!-- 头部区域（可配合layui已有的水平导航） -->
+    
     <ul class="layui-nav layui-layout-left">
       <li class="layui-nav-item"><a href="">控制台</a></li>
       <li class="layui-nav-item"><a href="">商品管理</a></li>
@@ -25,11 +55,12 @@
         </dl>
       </li>
     </ul>
+    
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-          	新世纪
+          	枫叶轻轻
         </a>
         <dl class="layui-nav-child">
           <dd><a href="">基本资料</a></dd>
@@ -38,6 +69,7 @@
       </li>
       <li class="layui-nav-item"><a href="">退了</a></li>
     </ul>
+    
   </div>
   
   <div class="layui-side layui-bg-black">
@@ -47,8 +79,11 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">信息管理</a>
           <dl class="layui-nav-child">
-            <dd><a data-url="content" data-id="11" data-title="用户信息管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">用户信息管理</a></dd>
-            <dd><a href="javascript:;">车辆信息管理</a></dd>
+            
+            
+            <dd><a data-url="user" data-id="3" data-title="用户登录管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">用户登录管理</a></dd>
+            <dd><a data-url="room" data-id="4" data-title="房间信息管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">房间信息管理</a></dd>
+            <dd><a data-url="userManger" data-id="5" data-title="用户信息管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">用户信息管理</a></dd>
           </dl>
         </li>
       </ul>
@@ -79,7 +114,9 @@
     <!-- 底部固定区域 -->
     	底部固定区域
   </div>
+  
 </div>
+
 <script src="../sources/layui/layui.js"></script>
 <script>
 //JavaScript代码区域

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.xml.transform.Source;
 
 import org.slf4j.Logger;
@@ -30,26 +31,48 @@ public class LoginController {
 	private ILoginService loginService;     
     
     // /user/test?id=1
-	//sssss
     @RequestMapping(value="/test", method=RequestMethod.GET)  
     public String test(HttpServletRequest request,Model model){  
         return "back"; 
     }
     
-    //返回字符串
+  //返回字符串
     @ResponseBody
-    @RequestMapping(value="/selectById", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
-    public String selectById(HttpServletRequest request) throws Exception{  
-    	String  idString = request.getParameter("id");
-    	Integer idInteger = Integer.valueOf(idString);
-    	Login login = loginService.selectByPrimaryKey(idInteger);
-    	System.out.println(login.toString());
-    	String[] colums = {"id","userName","password"};
-    	String data = ObjtoLayJson.toJson(login, colums);
+    @RequestMapping(value="/selectByManName", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
+    public String selectByManName(HttpServletRequest request) throws Exception{  
+    	//String  idString = request.getParameter("id");
+    	//Integer idInteger = Integer.valueOf(idString);
+    	String userName = request.getParameter("userName");
+    	String password = request.getParameter("password");
+    	Login login = loginService.selectByManName(userName);
+    	//System.out.println(login.toString());
+    	if(password.equals(login.getPassword())) {
+    		HttpSession session=request.getSession();
+    		session.setAttribute("userName",userName);
+        	String[] colums= {"id","userName","password"};
+        	String data=ObjtoLayJson.toJson(login, colums);
+        	//System.out.println("11111111111");
+            return data;
+    	}
+    	String data = "[{\"status\":1}, {\"message\": \"失败\" }, {\"count\": 1000},"
+    			+ "{\"rows\":{\"item\":[{\"userName\":\"null\"},{\"password\":\"null\"}]}}]"; 
     	System.out.println(data);
         return data; 
         
         
+    }
+    
+  //检查登录
+    @ResponseBody
+    @RequestMapping(value="/checkState", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
+    public String checkState(HttpServletRequest request,Model model) throws Exception{  
+    	HttpSession session=request.getSession();
+    	System.out.println(session.getAttribute("userName"));
+    	if(session.getAttribute("userName").equals("admin")) {
+			return "{\"message\":66}";
+		}else {
+			return "{\"message\":99}";
+		}
     }
     
     @ResponseBody

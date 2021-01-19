@@ -18,10 +18,7 @@ public class ILoginServiceImpl implements ILoginService{
 	
 	
 	
-	public Login selectByPrimaryKey(int id) {
-		// TODO Auto-generated method stub
-		return this.loginDao.selectByPrimaryKey(id);
-	}
+	
 
 	public int deleteByPrimaryKey(int id) {
 		// TODO Auto-generated method stub
@@ -41,6 +38,11 @@ public class ILoginServiceImpl implements ILoginService{
 	public List<Login> selectAll() {
 		// TODO Auto-generated method stub
 		return this.loginDao.selectAll();
+	}
+
+	public Login selectByManName(String userName) {
+		// TODO Auto-generated method stub
+		return this.loginDao.selectByManName(userName);
 	}
 
 }

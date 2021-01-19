@@ -20,6 +20,13 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   
+  <select id="selectByManName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from mangerLogin
+    where userName = #{userName,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectAll" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />

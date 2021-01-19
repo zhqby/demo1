@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.javen.dao.RoomDao" >
+  <resultMap id="BaseResultMap" type="com.javen.model.Room" >
+    <id      column="id"        property="id"        jdbcType="INTEGER" />
+    <result  column="roomId"  property="roomId"  jdbcType="INTEGER" />
+    <result  column="flag"  property="flag"  jdbcType="VARCHAR" />
+    <result  column="userName"  property="userName"  jdbcType="VARCHAR" />
+    <result  column="phoneNumber"  property="phoneNumber"  jdbcType="INTEGER" />
+    <result  column="idCard"  property="idCard"  jdbcType="INTEGER" />
+    <result  column="startTime"  property="startTime"  jdbcType="VARCHAR" />
+    <result  column="endTime"  property="endTime"  jdbcType="VARCHAR" />
+    <result  column="timeLength"  property="timeLength"  jdbcType="INTEGER" />
+    <result  column="surplusTime"  property="surplusTime"  jdbcType="INTEGER" />
+    
+  </resultMap>
+  
+  
+  <sql id="Base_Column_List" >
+   	roomId,flag,userName,phoneNumber,idCard,startTime,timeLength,endTime,surplusTime
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from login
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+   select room.roomId,room.flag,t1.userName,t1.phoneNumber,t1.idCard,t1.startTime,t1.endTime,t1.timeLength,t1.surplusTime from
+	(select user.userName,user.phoneNumber,user.idCard,usermanger.roomId,usermanger.startTime,usermanger.endTime,usermanger.timeLength,usermanger.surplusTime from user,usermanger 
+	where user.idCard=usermanger.idCard)t1 right JOIN room on room.roomId=t1.roomId
+  	limit #{0},#{1}
+  </select>
+  
+  
+  <select id="SelectCount"  resultType="java.lang.Integer">
+   SELECT count(*) FROM room;
+  </select>
+  
+   <insert id="insert" parameterType="com.javen.model.Room" >
+    insert into usermanger (roomId,idCard,startTime,endTime,timeLength,surplusTime)
+    values (#{roomId,jdbcType=INTEGER},#{idCard,jdbcType=INTEGER}, 
+    		#{startTime,jdbcType=VARCHAR},#{endTime,jdbcType=VARCHAR},#{timeLength,jdbcType=INTEGER},
+    		#{surplusTime,jdbcType=INTEGER})
+    
+   </insert>
+   
+   <update id="updateByRomId"  parameterType="com.javen.model.InsertRoom" >
+    update room
+    set roomId = #{roomId,jdbcType=INTEGER},
+      flag = #{flag,jdbcType=VARCHAR}
+      where roomId = #{roomId,jdbcType=INTEGER}
+  </update>
+   
+   
+   
+   <insert id="insertRoom" parameterType="com.javen.model.InsertRoom" >
+    insert into room (roomId,flag)
+    values (#{roomId,jdbcType=INTEGER}, #{flag,jdbcType=VARCHAR})
+    
+   </insert>
+
+
+   <delete id="deleteByRoomId"  parameterType="java.lang.Integer">
+    delete from usermanger
+    where roomId = #{roomId,jdbcType=INTEGER}
+  </delete>
+  
+ 
+  
+   
+
+</mapper>
