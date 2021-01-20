@@ -98,13 +98,17 @@
 			        	   var jsonObj = JSON.parse(res);
 			        	   console.info(jsonObj);
 			                if(jsonObj[0].status==0){ 
-			     				console.log(res);	
+			     				//console.log(res);	
 			               	 	layer.msg("登录成功");
-			               	 	console.info("成功");
+			               	 	//console.info("成功");
 				                location.href='back.html';
-			                }else{
+			                }else if(jsonObj[0].status==1){
+			                	layer.msg("输入数据为空");  
+			                	//console.info("失败");
+			                }
+			                else{
 			                	layer.msg("登录失败");  
-			                	console.info("失败");
+			                	//console.info("失败");
 			                }
 			                $("form")[0].reset();
 			                form.render();

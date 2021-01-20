@@ -7,11 +7,11 @@
   <link rel="stylesheet" href="../sources/layui/css/layui.css">
   <script src="../sources/layui/layui.js" charset="utf-8"></script>
   <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-  <script>
+   <script>
   checklogin();
   function checklogin(){
 		
-		var url = "http://localhost:8080/maven02/login/checkState";
+		var url = "http://localhost:8080/maven02/login/checkState1";
 		var data={};
 		 $.ajax({
 		        type: "get", //指定提交的类型 get对应 doGet()方法，post--->doPost()犯法
@@ -23,7 +23,7 @@
 		        {
 		        	
 		        	if(data.message==99){
-						location.href="mangerLogin.html";
+						location.href="userLogin.html";
 					}else{
 						
 					}
@@ -79,11 +79,7 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">信息管理</a>
           <dl class="layui-nav-child">
-            
-            
-            <dd><a data-url="user" data-id="3" data-title="用户登录管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">用户登录管理</a></dd>
-            <dd><a data-url="room" data-id="4" data-title="房间信息管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">房间信息管理</a></dd>
-            <dd><a data-url="userManger" data-id="5" data-title="用户信息管理"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">用户信息管理</a></dd>
+            <dd><a data-url="roomFront" data-id="4" data-title="房间信息"  href="#" class="site-demo-active" data-type="tabAdd" href="javascript:;">房间信息</a></dd>
           </dl>
         </li>
       </ul>

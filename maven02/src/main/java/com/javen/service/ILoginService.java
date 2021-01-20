@@ -19,4 +19,6 @@ public interface ILoginService {
 	 
 	 public List<Login> selectAll();
 	 
+	 Login selectByUserName(String userName);
+	 
 }

@@ -45,4 +45,9 @@ public class ILoginServiceImpl implements ILoginService{
 		return this.loginDao.selectByManName(userName);
 	}
 
+	public Login selectByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return this.loginDao.selectByUserName(userName);
+	}
+
 }

@@ -18,5 +18,9 @@ public interface RoomDao {
 	void updateByRomId(InsertRoom room);
 	
 	void insertRoom(InsertRoom insertRoom);
+	
+	int SelectCountFree();
+	
+	List<InsertRoom> selectFree(int pageindex,int pagesize);
 
 }

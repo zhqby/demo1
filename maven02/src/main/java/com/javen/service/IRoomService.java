@@ -19,5 +19,9 @@ public interface IRoomService {
 	void insertRoom(InsertRoom insertRoom);
 
 	void updateByRomId(InsertRoom insertRoom);
+	
+	int SelectCountFree();
+	
+	List<InsertRoom> selectFree(int pageindex,int pagesize);
 
 }

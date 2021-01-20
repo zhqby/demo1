@@ -11,6 +11,8 @@ public interface LoginDao {
 	
 	Login selectByManName(String userName);
 	
+	Login selectByUserName(String userName);
+	
 	int deleteByPrimaryKey(int id);
 	
 	int insert(Login login);

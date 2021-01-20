@@ -20,7 +20,6 @@
    	roomId,flag,userName,phoneNumber,idCard,startTime,timeLength,endTime,surplusTime
   </sql>
   
-  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select 
     <include refid="Base_Column_List" />
@@ -35,9 +34,17 @@
   	limit #{0},#{1}
   </select>
   
-  
   <select id="SelectCount"  resultType="java.lang.Integer">
    SELECT count(*) FROM room;
+  </select>
+  
+  <select id="selectFree" resultType="com.javen.model.InsertRoom" parameterType="java.lang.Integer">
+   select roomId,flag from room where flag="未入住"
+  	limit #{0},#{1}
+  </select>
+  
+  <select id="SelectCountFree"  resultType="java.lang.Integer">
+   SELECT count(*) FROM room where flag="未入住"
   </select>
   
    <insert id="insert" parameterType="com.javen.model.Room" >

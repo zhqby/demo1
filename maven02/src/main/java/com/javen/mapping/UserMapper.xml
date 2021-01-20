@@ -27,15 +27,12 @@
   </select>
   
   
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="selectByIdCard" resultMap="BaseResultMap" parameterType="java.lang.Integer">
     select 
     <include refid="Base_Column_List" />
-    from login
-    where id = #{id,jdbcType=INTEGER}
+    from user
+    where idCard = #{idCard,jdbcType=INTEGER}
   </select>
-  
-  
-  
   
   
   

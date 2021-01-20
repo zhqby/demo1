@@ -49,6 +49,19 @@ public class IRoomServiceImpl implements IRoomService{
 		this.roomDao.insertRoom(insertRoom);
 	}
 
+	public int SelectCountFree() {
+		// TODO Auto-generated method stub
+		return this.roomDao.SelectCountFree();
+	}
+
+	public List<InsertRoom> selectFree(int pageinteger, int limitinteger) {
+		// TODO Auto-generated method stub
+		
+		int pageIndex = (pageinteger-1) * limitinteger;
+		int pageSize = limitinteger;
+		return this.roomDao.selectFree(pageIndex,pageSize);
+	}
+
 	
 
 	

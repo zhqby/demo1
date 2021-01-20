@@ -42,6 +42,11 @@ public class IUserServiceImpl implements IUserService{
 		// TODO Auto-generated method stub
 		this.userDao.deleteByPrimaryKey(id);
 	}
+
+	public User selectByIdCard(int idCard) {
+		// TODO Auto-generated method stub
+		return this.userDao.selectByIdCard(idCard);
+	}
 	
 	
 

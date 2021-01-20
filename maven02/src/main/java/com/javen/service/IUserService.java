@@ -18,5 +18,7 @@ public interface IUserService {
 	void updateByPrimaryKey(User user);
 	
 	void deleteByPrimaryKey(int id);
+	
+	User selectByIdCard(int idCard);
 
 }

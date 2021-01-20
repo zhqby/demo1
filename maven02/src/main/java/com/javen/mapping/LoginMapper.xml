@@ -27,6 +27,13 @@
     where userName = #{userName,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where userName = #{userName,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectAll" resultMap="BaseResultMap" >
     select 
     <include refid="Base_Column_List" />

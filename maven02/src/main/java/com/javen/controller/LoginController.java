@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.javan.util.IsNull;
 import com.javan.util.ObjtoLayJson;
 import com.javen.model.Login;
 import com.javen.service.ILoginService;
@@ -36,7 +37,7 @@ public class LoginController {
         return "back"; 
     }
     
-  //返回字符串
+  //管理员登录
     @ResponseBody
     @RequestMapping(value="/selectByManName", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
     public String selectByManName(HttpServletRequest request) throws Exception{  
@@ -46,6 +47,16 @@ public class LoginController {
     	String password = request.getParameter("password");
     	Login login = loginService.selectByManName(userName);
     	//System.out.println(login.toString());
+    	
+    	String[] s1= {userName,password};
+    	boolean bool=IsNull.isNull(s1);
+    	if(bool==false) {
+    		String data = "[{\"status\":1}, {\"message\": \"失败\" }, {\"count\": 1000},"
+        			+ "{\"rows\":{\"item\":[{\"userName\":\"null\"},{\"password\":\"null\"}]}}]"; 
+        	//System.out.println(data);
+            return data;
+    	}
+    	
     	if(password.equals(login.getPassword())) {
     		HttpSession session=request.getSession();
     		session.setAttribute("userName",userName);
@@ -54,27 +65,78 @@ public class LoginController {
         	//System.out.println("11111111111");
             return data;
     	}
-    	String data = "[{\"status\":1}, {\"message\": \"失败\" }, {\"count\": 1000},"
+    	String data = "[{\"status\":2}, {\"message\": \"失败\" }, {\"count\": 1000},"
     			+ "{\"rows\":{\"item\":[{\"userName\":\"null\"},{\"password\":\"null\"}]}}]"; 
-    	System.out.println(data);
-        return data; 
-        
-        
+    	//System.out.println(data);
+        return data;
+         
     }
     
-  //检查登录
+  //用户登录
+    @ResponseBody
+    @RequestMapping(value="/selectByUserName", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
+    public String selectByUserName(HttpServletRequest request) throws Exception{  
+    	//String  idString = request.getParameter("id");
+    	//Integer idInteger = Integer.valueOf(idString);
+    	String userName = request.getParameter("userName");
+    	String password = request.getParameter("password");
+    	
+    	String[] s1= {userName,password};
+    	boolean bool=IsNull.isNull(s1);
+    	if(bool==false) {
+    		String data="{\"data\":2}";
+            return data;
+    	}
+    		
+    	Login login = loginService.selectByUserName(userName);
+    	//System.out.println(login.toString());
+    	if(password.equals(login.getPassword())) {
+    		HttpSession session=request.getSession();
+    		session.setAttribute("userName",userName);
+        	String[] colums= {"id","userName","password"};
+        	String data=ObjtoLayJson.toJson(login, colums);
+        	//System.out.println("11111111111");
+        	String data1="{\"data\":1}";
+            return data1;
+    	}
+    	String data = "{\"data\":0}"; 
+    	System.out.println(data);
+        return data; 
+     }
+    
+
+  
+    
+  //检查管理员登录
     @ResponseBody
     @RequestMapping(value="/checkState", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
     public String checkState(HttpServletRequest request,Model model) throws Exception{  
     	HttpSession session=request.getSession();
-    	System.out.println(session.getAttribute("userName"));
-    	if(session.getAttribute("userName").equals("admin")) {
+    	//System.out.println(session.getAttribute("userName"));
+    	if(session.getAttribute("userName")!=null) {
 			return "{\"message\":66}";
 		}else {
 			return "{\"message\":99}";
 		}
     }
     
+    
+  //检查用户登录
+    @ResponseBody
+    @RequestMapping(value="/checkState1", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
+    public String checkState1(HttpServletRequest request,Model model) throws Exception{  
+    	HttpSession session=request.getSession();
+    	//System.out.println(session.getAttribute("userName"));
+    	if(session.getAttribute("userName")!=null) {
+			return "{\"message\":66}";
+		}else {
+			return "{\"message\":99}";
+		}
+    }
+   
+    
+    
+    //没用
     @ResponseBody
     @RequestMapping(value="/deleteByPrimaryKey", method=RequestMethod.GET,produces = "text/plain;charset=utf-8")  
     public String deleteByPrimaryKey(HttpServletRequest request) {
